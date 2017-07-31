@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/submitconfirm/submitconfirm"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2a85bb",
+    "navigationBarTitleText": "NavVis 客户提问系统",
+    "navigationBarTextStyle": "#white"
+  }
+}

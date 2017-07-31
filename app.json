@@ -1,12 +1,35 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/submitconfirm/submitconfirm"
+    "pages/submitconfirm/submitconfirm",
+    "pages/setting/setting"
   ],
+
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#2a85bb",
     "navigationBarTitleText": "NavVis 客户提问系统",
     "navigationBarTextStyle": "#white"
-  }
+  },
+
+    "tabBar": {
+      "color": "#888",
+      "selectedColor": "#2a85bb",
+      "backgroundColor": "#white",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/index/index",
+          "text": "提问系统",
+          "iconPath": "images/user.png",
+          "selectedIconPath": "images/user.png"
+        },
+        {
+          "pagePath": "pages/setting/setting",
+          "text": "设置",
+          "iconPath": "images/setting.png",
+          "selectedIconPath": "images/setting.png"
+        }
+      ]
+    }
 }

@@ -1,6 +1,3 @@
 //app.js
 
-App({
-  onLaunch: function() {
-  }
-})
+App({})

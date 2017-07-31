@@ -8,4 +8,71 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
+
+.page {
+    min-height: 100%;
+    flex: 1;
+    background-color: white;
+    font-size: 24rpx;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    overflow: hidden;
+}
+
+.section__title{
+  font-size: 30rpx;
+  margin-bottom: 30rpx;
+  font-weight: bold;
+}
+
+.page__hd{
+    padding: 50rpx 50rpx 100rpx 50rpx;
+    text-align: center;
+}
+.page__title{
+    display: inline-block;
+    padding: 20rpx 40rpx;
+    font-size: 32rpx;
+    color: #AAAAAA;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.section{
+    margin-bottom: 80rpx;
+}
+
+.section__title{
+    margin-bottom: 16rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+
+.btn-area{
+    padding: 0 30px;
+}
+
+.btn-area button{
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.section input{
+    padding: 20rpx 30rpx;
+    background-color: #EEEEEE;
+    margin-left: 20rpx;
+    width: 85%
+}
+
+.section textarea{
+    padding: 20rpx 30rpx;
+    background-color: #EEEEEE;
+    margin-left: 20rpx;
+    width: 85%
+}
+
+.section picker{
+    padding: 20rpx 30rpx;
+    background-color: #EEEEEE;
+    margin-left: 20rpx;
+    width: 85%
+}

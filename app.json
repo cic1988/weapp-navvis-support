@@ -22,12 +22,12 @@
         {
           "pagePath": "pages/index/index",
           "iconPath": "images/user.png",
-          "selectedIconPath": "images/user.png"
+          "selectedIconPath": "images/user-selected.png"
         },
         {
           "pagePath": "pages/setting/setting",
           "iconPath": "images/setting.png",
-          "selectedIconPath": "images/setting.png"
+          "selectedIconPath": "images/setting-selected.png"
         }
       ]
     }

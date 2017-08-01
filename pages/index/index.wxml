@@ -22,6 +22,10 @@
     </view>
 
     <view class="btn-area">
+      <button bindtap="chooseImg">选择图片并上传</button>
+    </view>
+
+    <view class="btn-area">
       <button formType="submit">{{submitbtn_text}}</button>
     </view>
 

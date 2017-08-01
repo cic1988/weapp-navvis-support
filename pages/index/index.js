@@ -9,7 +9,8 @@ Page({
   data: {
     email: '',
     subject: '',
-    description: ''
+    description: '',
+    attachments: []
   },
 
   onLoad() {
@@ -52,6 +53,22 @@ Page({
     })
   },
 
+  // choose image
+
+  chooseImg: function () {
+    var that = this;
+
+    wx.chooseImage({
+      count: 5, // max 5 photos
+      sizeType: ['original', 'compressed'], // choose defaul size or conpressed size
+      sourceType: ['album', 'camera'], // choose the source of photos
+
+      success: function (res) {
+        that.data.attachments = res.tempFilePaths
+      }
+    })
+  },
+
   // submit
 
   showWarning: function (text) {
@@ -72,7 +89,8 @@ Page({
         //confirmationModalHidden: false,
         email: value.email,
         subject: value.subject,
-        description: value.description
+        description: value.description,
+
       }
     );
 
@@ -136,7 +154,8 @@ Page({
         'description': value.description,
         'email': value.email,
         'priority': 1,
-        'status': 2
+        'status': 2,
+        'attachments[0]': that.data.attachments
       },
 
       header: {

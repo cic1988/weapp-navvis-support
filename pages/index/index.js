@@ -1,13 +1,71 @@
 //index.js
+
+import event from '../../utils/event'
+import freshdesk from '../../utils/api'
+import base64 from '../../utils/base64.js'
+
 Page({
+
   data: {
-    //confirmationModalHidden: true,
     email: '',
     subject: '',
     description: ''
   },
 
+  onLoad() {
+    event.on("LangChanged", this, this.setLang)
+    this.setLang()
+  },
+
+  onShow() {
+    // tabbar and tab titles are currently not able to modify
+    // need to hard-code them
+    const _ = wx.T._;
+    wx.setNavigationBarTitle({
+      title: _('NavVis Support System')
+    })
+  },
+
+  setLang() {
+    const _ = wx.T._;
+    this.setData({
+      email_label: _('Email:'),
+      email_placeholder: _('Your personal email or NavVis portal email'),
+
+      subject_label: _('Subject:'),
+      subject_placeholder: _('Brief summary'),
+
+      description_label: _('Description:'),
+      description_placeholder: _('Issue description in detail'),
+
+      submitbtn_text: _('Submit'),
+
+      warning_box_title: _('Warning'),
+      warning_box_confirm: _('OK'),
+
+      warning_email_nofound: _('Sorry, but we did not find your email in our system, please contact NavVis support'),
+      warning_email_noregistered: _('Your are not yet registered in our system, please contact NavVis support'),
+      warning_email_format: _('Email format is wrong, would you like to check it again?'),
+      warning_unknown: _('Unknown error, please contact NavVis support'),
+
+      submit_waiting: _('Submitting...')
+    })
+  },
+
+  // submit
+
+  showWarning: function (text) {
+    wx.showModal({
+      title: this.data.warning_box_title,
+      content: text,
+      showCancel: false,
+      confirmText: this.data.warning_box_confirm,
+      confirmColor: '#2a85bb'
+    })
+  },
+
   formSubmit: function (e) {
+    var that = this;
     var value = e.detail.value;
 
     this.setData({
@@ -19,9 +77,6 @@ Page({
     );
 
     // submit the ticket via freshdesk api
-    var base64 = require("../../utils/base64.js");
-    var freshdesk = require("../../utils/api.js");
-
     // verify contact info
     wx.request({
       url: freshdesk.getContactViaEmail(value.email),
@@ -35,56 +90,45 @@ Page({
       success: function(res) {
         wx.hideToast();
 
+        const _ = wx.T._;
         // 200 - 1) email exists 2) format correct but not exists
         if (res.statusCode == 200) {
-          var data = JSON.parse(res.data);
 
-          if (data.length == 0) {
-
-            wx.showModal({
-              title: '提示',
-              content: '在系统中找到您的邮箱：' + value.email + ' 请联系NavVis客服获得提问权限。'
-            })
+          if (res.data.length == 0) {
+            that.showWarning(that.data.warning_email_nofound)
           }
-          else if (data.length == 1) {
-            this.submit(value);
+          else if (res.data.length == 1) {
+            // check this contact whether he is related to a valid company
+            // we only accept request from our registered clients to avoid spam
+            var contact = res.data[0];
+
+            if (! contact.company_id) {
+              that.showWarning(that.data.warning_email_noregistered)
+            }
+            else {
+              that.submit(value);
+            }
           }
         }
-        else if (res.statusCode == 404) {
-
-          wx.showModal({
-            title: '提示',
-            content: '在系统中未找到您的邮箱：' + value.email + 
-            ' 请联系NavVis客服获得提问权限。'
-          })         
+        else if (res.statusCode == 400) {
+          that.showWarning(that.data.warning_email_format)
         }
       }
     }),
   
     // timeout 8s until the submit callback
     wx.showToast({
-      title: '提交中，请稍候...',
+      title: this.data.submit_waiting,
       icon: 'loading',
-      duration: 8000
+      duration: 10000
     });
-  },
-
-  alertShow: function (that, iconType, alertlable) {
-    that.setData({
-      isAlert: true,
-      iconType: iconType,
-      alertLable: alertlable
-    });
-    setTimeout(function (e) {
-      that.setData({
-        isAlert: false
-      })
-    }, 1500)
   },
 
   submit: function (value) {
+    var that = this;
+
     wx.request({
-      url: 'https://solutionbuilder.freshdesk.com/api/v2/tickets',
+      url: freshdesk.createTicket(),
       method: 'POST',
 
       data: {
@@ -117,34 +161,16 @@ Page({
           })
         }
         else if (res.statusCode == 400) {
-          console.log('您的邮箱：' + value.email + ' 格式输入有误')
-
-          wx.showToast({
-            title: '您的邮箱：' + value.email + ' 格式输入有误',
-            image: '/images/cross.png',
-            duration: 1500
-          })
+          that.showWarning(that.data.warning_email_format)
         }
         else {
-          console.log('错误代码: ' + res.statusCode + ' 请联系客服！')
-
-          wx.showToast({
-            title: '错误代码: ' + res.statusCode + ' 请联系客服: support@navvis.com',
-            image: '/images/cross.png',
-            duration: 1500
-          })
+          that.showWarning(res.statusCode + ': ' + that.data.warning_unknown)
         }
       },
 
       fail: function (res) {
-        cconsole.log('错误代码: ' + res.statusCode + ' 请联系客服！')
+        that.showWarning(res.statusCode + ': ' + that.data.warning_unknown)
       }
     });
   }
-
-  //confirmationModalChange: function (e) {
-  //  this.setData({
-  //    confirmationModalHidden: true
-  //  })
-  //}
 })

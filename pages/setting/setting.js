@@ -1,3 +1,5 @@
+import event from '../../utils/event.js'
+
 Page({
   data: {
     array: ['中文', 'English'],
@@ -15,6 +17,25 @@ Page({
     index: 0
   },
 
+  onLoad() {
+    event.on("LangChanged", this, this.setLang)
+    this.setLang()
+  },
+
+  setLang() {
+    const _ = wx.T._
+    this.setData({
+      lang_picker: _('Choose Your Language:'),
+      lang_picker_placeholder: _('Language:')
+    })
+
+    // tabbar and tab titles are currently not able to modify
+    // need to hard-code them
+    wx.setNavigationBarTitle({
+      title: _('NavVis Support System')
+    })
+  },
+
   languageBindPickerChange: function (e) {
 
     console.log('picker changed with value:', e.detail.value)
@@ -23,17 +44,21 @@ Page({
       index: e.detail.value
     })
 
-    // load language js
+    var lang = 'zh';
+
     if (e.detail.value == 0) {
-      require("../../language/lang.zh.js")
+      lang = 'zh'
     }
     else if (e.detail.value == 1) {
-      require("../../language/lang.en.js")
+      lang = 'en'
     }
-    //console.log(lang.tabBarTitleText)
-    console.log(lang.en.name);
-    //wx.setNavigationBarTitle({
-    //  title: lang.tabBarTitleText
-    //})
+    else {
+      throw('something went wrong, please contact NavVis support')
+    }
+
+    // load language js
+    const _ = wx.T._
+    wx.T.setLocale(lang)
+    event.emit('LangChanged', lang)
   }
 })

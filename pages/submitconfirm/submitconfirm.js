@@ -1,66 +1,27 @@
-// welcome.js
+// submitconfirm.js
+
+import event from '../../utils/event.js'
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-  
+  onLoad() {
+    event.on("LangChanged", this, this.setLang)
+    this.setLang()
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onShow() {
+    // tabbar and tab titles are currently not able to modify
+    // need to hard-code them
+    const _ = wx.T._;
+    wx.setNavigationBarTitle({
+      title: _('NavVis Support System')
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  setLang() {
+    const _ = wx.T._;
+    this.setData({
+      submit_success: _('Your request is successfully submitted! Our support staff would contact you soon!')
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

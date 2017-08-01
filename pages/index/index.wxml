@@ -7,22 +7,22 @@
   <form class="page__bd" catchsubmit="formSubmit" catchreset="formReset">
 
     <view class="section">
-      <view class="section__title">联系邮箱：</view>
-      <input name="email" placeholder="您的邮箱地址／您注册在NavVis门户的邮箱" />
+      <view class="section__title">{{email_label}}</view>
+      <input name="email" placeholder="{{email_placeholder}}" />
     </view>
   
     <view class="section">
-      <view class="section__title">提问主题：</view>
-      <input name="subject" placeholder="一句话概述" />
+      <view class="section__title">{{subject_label}}</view>
+      <input name="subject" placeholder="{{subject_placeholder}}" />
     </view>
 
     <view class="section">
-      <view class="section__title">提问描述: </view>
-      <textarea name="description" placeholder="具体的问题描述" />
+      <view class="section__title">{{description_label}}</view>
+      <textarea name="description" placeholder="{{description_placeholder}}" />
     </view>
 
     <view class="btn-area">
-      <button formType="submit">提交</button>
+      <button formType="submit">{{submitbtn_text}}</button>
     </view>
 
   </form>

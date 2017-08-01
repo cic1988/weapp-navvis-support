@@ -4,10 +4,10 @@
   </view>
 
   <view class="section">
-    <view class="section__title">选择语言 Choose Your Language:</view>
+    <view class="section__title">{{lang_picker}}</view>
     <picker bindchange="languageBindPickerChange" value="{{index}}" range="{{array}}">
       <view class="picker">
-        当前选择：{{array[index]}}
+        {{lang_picker_placeholder}} {{array[index]}}
       </view>
     </picker>
   </view>

@@ -15,5 +15,9 @@ module.exports = {
   // find contact
   getContactViaEmail: function (email) {
     return HOST_URI + 'contacts/?email=' + email;
+  },
+
+  createTicket: function () {
+    return 'https://solutionbuilder.freshdesk.com/api/v2/tickets'
   }
 };

@@ -7,26 +7,22 @@
   <form class="page__bd" catchsubmit="formSubmit" catchreset="formReset">
 
     <view class="section">
-      <view class="section__title">{{email_label}}</view>
-      <input name="email" placeholder="{{email_placeholder}}" />
+      <view class="section__title">{{lang.email_label}}</view>
+      <input name="email" placeholder="{{lang.email_placeholder}}" />
     </view>
   
     <view class="section">
-      <view class="section__title">{{subject_label}}</view>
-      <input name="subject" placeholder="{{subject_placeholder}}" />
+      <view class="section__title">{{lang.subject_label}}</view>
+      <input name="subject" placeholder="{{lang.subject_placeholder}}" />
     </view>
 
     <view class="section">
-      <view class="section__title">{{description_label}}</view>
-      <textarea name="description" placeholder="{{description_placeholder}}" />
+      <view class="section__title">{{lang.description_label}}</view>
+      <textarea name="description" placeholder="{{lang.description_placeholder}}" />
     </view>
 
     <view class="btn-area">
-      <button bindtap="chooseImg">选择图片并上传</button>
-    </view>
-
-    <view class="btn-area">
-      <button formType="submit">{{submitbtn_text}}</button>
+      <button formType="submit">{{lang.submitbtn_text}}</button>
     </view>
 
   </form>

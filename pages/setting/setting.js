@@ -1,4 +1,5 @@
 import event from '../../utils/event.js'
+import freshdesk from '../../utils/api.js'
 
 Page({
   data: {
@@ -59,6 +60,9 @@ Page({
     // load language js
     const _ = wx.T._
     wx.T.setLocale(lang)
+
+    freshdesk.reloadLang();
+
     event.emit('LangChanged', lang)
   }
 })

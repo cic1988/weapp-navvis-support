@@ -1,13 +1,14 @@
+<!--setting.wxml-->
 <view class="page">
 
   <view class="page__hd">
   </view>
 
   <view class="section">
-    <view class="section__title">{{lang_picker}}</view>
+    <view class="section__title">{{lang.lang_picker}}</view>
     <picker bindchange="languageBindPickerChange" value="{{index}}" range="{{array}}">
       <view class="picker">
-        {{lang_picker_placeholder}} {{array[index]}}
+        {{lang.lang_picker_placeholder}} {{array[index]}}
       </view>
     </picker>
   </view>

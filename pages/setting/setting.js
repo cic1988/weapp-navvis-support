@@ -1,7 +1,24 @@
+/* 
+ * weapp-navvis-support
+ * Author: YUAN GAO
+ * Organization: NavVis GmbH
+ * Wechat ID: gaoyuanhot
+ * Copyright (c) 2017 https://www.navvis.com All rights reserved.
+ * 
+ * setting.js
+ * 
+ * setting page
+ */
+
 import event from '../../utils/event.js'
 import freshdesk from '../../utils/api.js'
 
 Page({
+
+  //-------------------------------------------------------------------------------------
+  // data for the label and text fields
+  //-------------------------------------------------------------------------------------
+
   data: {
     array: ['中文', 'English'],
 
@@ -15,31 +32,29 @@ Page({
         name: 'English'
       }
     ],
-    index: 0
+
+    index: 0,
+    lang: freshdesk.lang
   },
 
   onLoad() {
     event.on("LangChanged", this, this.setLang)
-    this.setLang()
   },
 
   setLang() {
-    const _ = wx.T._
     this.setData({
-      lang_picker: _('Choose Your Language:'),
-      lang_picker_placeholder: _('Language:')
+      lang: freshdesk.lang
     })
 
     // tabbar and tab titles are currently not able to modify
     // need to hard-code them
+    const _ = wx.T._;
     wx.setNavigationBarTitle({
       title: _('NavVis Support System')
     })
   },
 
   languageBindPickerChange: function (e) {
-
-    console.log('picker changed with value:', e.detail.value)
 
     this.setData({
       index: e.detail.value

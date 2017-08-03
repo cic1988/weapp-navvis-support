@@ -21,6 +21,8 @@ const navvisblue = '#2A85BB'
 
 const _ = wx.T._;
 
+var lang = {};
+
 
 //---------------------------------------------------------------------------------------
 // wrapper for freshdesk protocol, see freshdesk docs: https://developer.freshdesk.com/api/
@@ -46,12 +48,11 @@ var API_KEY = base64.encode('VntpYvY02xmQ08vzoOF');
 // contact only registered in freshdesk and has valid company id is allowed to submit ticket
 //
 // email: contact email as input string
-// trySubmit: callback function e.g function to create ticket
-function checkContact(email) {
-  console.log('email...')
+
+function checkContact(email, callback) {
+
   wx.request({
-    //url: HOST_URI + 'contacts/?email=' + email,
-    url: HOST_URI + 'contacts/?email=111@111.com',
+    url: HOST_URI + 'contacts/?email=' + email,
     method: 'GET',
 
     header: {
@@ -60,14 +61,14 @@ function checkContact(email) {
     },
 
     success: function (res) {
-      console.log('here')
+      // nevertherless hide the loading toast first
       wx.hideToast();
 
       // 200 - 1) email exists 2) format correct but not exists
       if (res.statusCode == 200) {
 
         if (res.data.length == 0) {
-          showWarning(lang.data.warning_email_nofound)
+          showWarning(lang.warning_email_nofound)
         }
         else if (res.data.length == 1) {
           // check this contact whether he is related to a valid company
@@ -75,9 +76,12 @@ function checkContact(email) {
           var contact = res.data[0];
 
           if (!contact.company_id) {
-            showWarning(lang.data.warning_email_noregistered)
+            showWarning(lang.warning_email_noregistered)
           }
           else {
+            if (callback && typeof (callback) === "function") {
+              callback();
+            }
           }
         }
       }
@@ -150,8 +154,6 @@ function createTicket(value, redirectPage) {
 // fixed translated text
 //---------------------------------------------------------------------------------------
 
-var lang = {};
-
 function reloadLang() {
   lang.email_label = _('Email:')
   lang.email_placeholder = _('Your personal email or NavVis portal email')
@@ -173,6 +175,11 @@ function reloadLang() {
   lang.warning_unknown = _('Unknown error, please contact NavVis support')
 
   lang.submit_waiting = _('Submitting...')
+
+  lang.lang_picker = _('Choose Your Language:')
+  lang.lang_picker_placeholder = _('Language:')
+
+  lang.submit_success = _('Your request is successfully submitted! Our support staff would contact you soon!')
 }
 
 module.exports = {

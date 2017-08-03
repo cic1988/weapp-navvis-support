@@ -62,10 +62,7 @@ Page({
   // submit
 
   formSubmit: function (e) {
-    var that = this;
     var value = e.detail.value;
-    console.log('hhhhh')
-    freshdesk.checkContact(value.email)
-    //freshdesk.createTicket(value,  '../submitconfirm/submitconfirm')
+    freshdesk.checkContact(value.email, freshdesk.createTicket(value, '../submitconfirm/submitconfirm'))
   }
 })

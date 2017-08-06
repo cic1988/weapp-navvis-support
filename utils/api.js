@@ -23,6 +23,8 @@ const _ = wx.T._;
 
 var lang = {};
 
+var app = getApp();
+
 
 //---------------------------------------------------------------------------------------
 // wrapper for freshdesk protocol, see freshdesk docs: https://developer.freshdesk.com/api/
@@ -98,14 +100,14 @@ function checkContact(email, callback) {
 // value: pack the given information for a ticket
 // redirectPage: which page to redirect to after submitting
 function createTicket(value, redirectPage) {
-
+  console.log(app.globalData.userInfo)
   wx.request({
     url: HOST_URI + 'tickets',
     method: 'POST',
 
     data: {
-      'subject': value.subject,
-      'description': value.description,
+      'subject': '[WeChat]' + value.subject,
+      'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
       'email': value.email,
       'priority': 1,
       'status': 2,

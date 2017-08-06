@@ -2,7 +2,7 @@ export default {
   "en": {
     // translation for welcome page
     "welcome_info": "Welcome for using NavVis Support System!\n\n" +
-                    "Your request will be sent together with your WeChat ID to our system. \n\n" +
+                    "Your request will be sent together with your WeChat nickname to our system. \n\n" +
                     "You must be a registered NavVis user in order to use the system. \n" +
                     "Please contact \n\n" +
                     "support@navvis.com \n\n" +
@@ -38,7 +38,7 @@ export default {
 
   "zh": {
     "welcome_info": "欢迎使用NavVis客户提问系统！\n\n" +
-                    "当您发送提问时，小程序将提问以及您的微信号一同发送到提问系统。\n\n" +
+                    "当您发送提问时，小程序将提问以及您的微信昵称一同发送到提问系统。\n\n" +
                     "使用提问系统，请确保您为NavVis注册用户。\n" +
                     "如果您无法提交问题，请通过 \n\n"+
                     "support@navvis.com \n\n" +

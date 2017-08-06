@@ -20,22 +20,15 @@ App({
         }
       }
     })
-  },
 
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    }
-    else {
-      wx.getUserInfo({
-        withCredentials: false,
-        success: function (res) {
-          that.globalData.userInfo = res.userInfo
-          typeof cb == "function" && cb(that.globalData.userInfo)
-        }
-      })
-    }
+    var that = this;
+
+    wx.getUserInfo({
+      withCredentials: false,
+      success: function (res) {
+        that.globalData.userInfo = res.userInfo
+      }
+    });
   },
 
   globalData: {

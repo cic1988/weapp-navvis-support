@@ -1,5 +1,10 @@
 export default {
   "en": {
+    // translation for welcome page
+    "welcome_info": "Welcome for using NavVis Support System!\n\n" +
+                    "You must be a registered NavVis user in order to use the system. " +
+                    "Please contact support@navvis.com if you have any trouble by submitting requests.",
+    "Yes, I've got it": "Yes, I've got it",
     // translation for index
     "NavVis Support System": "NavVis Support System",
     "Email:": "Email:",
@@ -28,6 +33,11 @@ export default {
   },
 
   "zh": {
+    "welcome_info": "欢迎使用NavVis客户提问系统！\n\n" +
+                    "使用提问系统，请确保您为NavVis注册用户。" +
+                    "如果您无法提交问题，请通过support@navvis.com联系我们。",
+    "Yes, I've got it": "知道了",
+
     "NavVis Support System": "NavVis 客户提问系统",
     "Email:": "联系邮箱：",
     "Your personal email or NavVis portal email": "您的邮箱地址／您注册在NavVis门户的邮箱",

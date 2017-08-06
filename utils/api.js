@@ -129,7 +129,8 @@ function createTicket(value, redirectPage) {
           icon: 'success',
           duration: 1000,
 
-          complete: function (res) {
+          complete: function (res) {            
+            wx.setStorageSync('userEmail', value.email);
             wx.redirectTo({ url: redirectPage });
           }
         })

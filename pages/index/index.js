@@ -20,7 +20,8 @@ Page({
   //-------------------------------------------------------------------------------------
 
   data: {
-    lang: freshdesk.lang
+    lang: freshdesk.lang,
+    value_email: wx.getStorageSync('userEmail') 
   },
 
   setLang: function() {

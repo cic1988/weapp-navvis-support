@@ -8,7 +8,7 @@
 
     <view class="section">
       <view class="section__title">{{lang.email_label}}</view>
-      <input name="email" placeholder="{{lang.email_placeholder}}" />
+      <input name="email" placeholder="{{lang.email_placeholder}}" value="{{value_email}}"/>
     </view>
   
     <view class="section">

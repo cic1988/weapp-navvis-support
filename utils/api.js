@@ -40,8 +40,8 @@ function showWarning(text) {
   })
 }
 
-var HOST_URI = 'https://solutionbuilder.freshdesk.com/api/v2/';
-var API_KEY = base64.encode('VntpYvY02xmQ08vzoOF');
+var HOST_URI = 'https://<domain>.freshdesk.com/api/v2/';
+var API_KEY = base64.encode('API');
 
 // send request to verify the given email whether:
 // 1) the contact is registered in freshdesk but without valid company id OR
@@ -100,7 +100,7 @@ function checkContact(email, callback) {
 // value: pack the given information for a ticket
 // redirectPage: which page to redirect to after submitting
 function createTicket(value, redirectPage) {
-  console.log(app.globalData.userInfo)
+
   wx.request({
     url: HOST_URI + 'tickets',
     method: 'POST',
@@ -111,6 +111,13 @@ function createTicket(value, redirectPage) {
       'email': value.email,
       'priority': 1,
       'status': 2,
+      'responder_id': 7002450169, // this is Yuan
+      'type': 'Ask Question/Report Something not Working!!',
+      'custom_fields': {
+        'request_category': "General Question",
+        'product_types': "Business, Operations &amp; Others",
+        'product_categories': "General Issue"
+      }
       // attachment currently available, why? - with curl is ok
       //'attachments[0]': that.data.attachments
     },
@@ -136,9 +143,6 @@ function createTicket(value, redirectPage) {
             wx.redirectTo({ url: redirectPage });
           }
         })
-      }
-      else if (res.statusCode == 400) {
-        showWarning(lang.warning_email_format)
       }
       else {
         showWarning(res.statusCode + ': ' + lang.warning_unknown)

@@ -30,15 +30,6 @@ Page({
 
     if (wx.getStorageSync('userInitialized')) {
       wx.switchTab({ url: '../index/index' });
-      return;
     }
-    var that = this
-
-    app.getUserInfo(function(userInfo){
-
-      that.setData({
-        userInfo:userInfo
-      })
-    })
   }
 })

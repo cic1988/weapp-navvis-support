@@ -4,17 +4,43 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #F6F6F6;
+  background-color: white;
   align-items: center;
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
 }
 
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+}
+
+.usermotto {
+  margin-top: 100rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+
+  padding: 50rpx;
+  border-radius: 3%;
+
+  font-size: 24rpx;
+  line-height: 28rpx;
+
+  background-color: #F6F6F6
+}
+
 .page {
     min-height: 100%;
     flex: 1;
-    background-color: '#F8F8F8';
+    background-color: white;
     font-size: 24rpx;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
     overflow: hidden;
@@ -27,9 +53,10 @@
 }
 
 .page__hd{
-    padding: 50rpx 50rpx 100rpx 50rpx;
+    padding: 50rpx 50rpx 20rpx 50rpx;
     text-align: center;
 }
+
 .page__title{
     display: inline-block;
     padding: 20rpx 40rpx;
@@ -59,14 +86,14 @@
 
 .section input{
     padding: 20rpx 30rpx;
-    background-color: #EEEEEE;
+    background-color: #F6F6F6;
     margin-left: 20rpx;
     width: 85%
 }
 
 .section textarea{
     padding: 20rpx 30rpx;
-    background-color: #EEEEEE;
+    background-color: #F6F6F6;
     margin-left: 20rpx;
     width: 85%
 }

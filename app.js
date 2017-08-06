@@ -9,6 +9,17 @@ wx.T = T
 
 App({
   onLaunch: function () {
+    //get system language
+    wx.getSystemInfo({
+      success: function(res) {
+        if (res.language == 'zh_CN') {
+          T.setLocale('zh')
+        }
+        else {
+          T.setLocale('en')
+        }
+      }
+    })
   },
 
   getUserInfo: function (cb) {

@@ -39,18 +39,18 @@ Page({
 
   onLoad() {
     event.on("LangChanged", this, this.setLang)
+
+    if (wx.T.locale == 'zh') {
+      this.setData({ index: 0 })
+    }
+    else {
+      this.setData({ index: 1 })
+    }
   },
 
   setLang() {
     this.setData({
       lang: freshdesk.lang
-    })
-
-    // tabbar and tab titles are currently not able to modify
-    // need to hard-code them
-    const _ = wx.T._;
-    wx.setNavigationBarTitle({
-      title: _('NavVis Support System')
     })
   },
 

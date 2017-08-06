@@ -29,7 +29,7 @@ export default {
     "Language:": "Language:",
 
     // translation for submitconfirm
-    "Your request is successfully submitted! Our support staff would contact you soon!": "Your request is successfully submitted! Our support staff would contact you soon!"
+    "Your request is successfully submitted! Our support staff would contact you soon!": "Your request is successfully submitted! \n\nOur support staff would contact you soon!"
   },
 
   "zh": {
@@ -59,6 +59,6 @@ export default {
     "Choose Your Language:": "选择语言：",
     "Language:": "当前语言：",
 
-    "Your request is successfully submitted! Our support staff would contact you soon!": "您的问题已成功提交！我们的客服会尽快与您取得联系！"
+    "Your request is successfully submitted! Our support staff would contact you soon!": "您的问题已成功提交！\n\n我们的客服会尽快与您取得联系！"
   }
 }

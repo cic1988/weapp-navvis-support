@@ -31,14 +31,5 @@ Page({
 
   onLoad() {
     event.on("LangChanged", this, this.setLang)
-  },
-
-  onShow() {
-    // tabbar and tab titles are currently not able to modify
-    // need to hard-code them
-    const _ = wx.T._;
-    wx.setNavigationBarTitle({
-      title: _('NavVis Support System')
-    })
   }
 })

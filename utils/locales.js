@@ -17,6 +17,7 @@ export default {
     "Brief summary": "Brief summary",
     "Description:": "Description:",
     "Issue description in detail": "Issue description in detail",
+    "Would you like to attach an image?": "Would you like to attach an image?",
     "Submit": "Submit",
 
     "Warning": "Warning",
@@ -53,6 +54,7 @@ export default {
     "Brief summary": "一句话概述",
     "Description:": "提问描述: ",
     "Issue description in detail": "具体的问题描述",
+    "Would you like to attach an image?": "您希望上传一张截图吗？",
     "Submit": "提交",
 
     "Warning": "出错啦！",

@@ -8,9 +8,9 @@
 
     <view class="section">
       <view class="section__title">{{lang.email_label}}</view>
-      <input name="email" placeholder="{{lang.email_placeholder}}" value="{{value_email}}"/>
+      <input name="email" placeholder="{{lang.email_placeholder}}" value="{{value_email}}" />
     </view>
-  
+
     <view class="section">
       <view class="section__title">{{lang.subject_label}}</view>
       <input name="subject" placeholder="{{lang.subject_placeholder}}" />
@@ -19,6 +19,18 @@
     <view class="section">
       <view class="section__title">{{lang.description_label}}</view>
       <textarea name="description" placeholder="{{lang.description_placeholder}}" />
+    </view>
+
+    <view class="section">
+      <view class="section__title">{{lang.attachment_label}}</view>
+
+        <view class="preview" hidden="{{previewHidden}}" style="width: {{imageWidth}}px;" bindtap="removeImage">
+          <image class="preview_image" style="width: {{imageWidth}}px;" mode="aspectFill" src="{{attachment}}"/>
+        </view>
+
+        <view class="add_image" hidden="{{addImageHidden}}">
+          <image style="width: 150rpx; height: 150rpx" src="/images/icon_add.png" bindtap="chooseImage" />
+        </view>
     </view>
 
     <view class="btn-area">

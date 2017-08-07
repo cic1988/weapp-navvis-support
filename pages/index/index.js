@@ -21,7 +21,9 @@ Page({
 
   data: {
     lang: freshdesk.lang,
-    value_email: wx.getStorageSync('userEmail') 
+    value_email: wx.getStorageSync('userEmail'),
+    addImageHidden: false,
+    previewHidden: true
   },
 
   setLang: function() {
@@ -32,29 +34,58 @@ Page({
 
   onLoad() {
     event.on("LangChanged", this, this.setLang)
-  },
 
-/*
-  // choose image
-
-  chooseImg: function () {
     var that = this;
 
-    wx.chooseImage({
-      count: 5, // max 5 photos
-      sizeType: ['original', 'compressed'], // choose defaul size or conpressed size
-      sourceType: ['album', 'camera'], // choose the source of photos
-
+    // get screen width
+    wx.getSystemInfo({
       success: function (res) {
-        that.data.attachments = res.tempFilePaths
+        that.setData({ imageWidth: res.windowWidth / 3 + 20 })
       }
+    });
+  },
+
+  // choose image
+  // only one image can be uploaded at once see: https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-file.html#wxuploadfileobject
+  chooseImage: function() {
+      var that = this;
+
+      wx.chooseImage({
+        count: 1, // can choose only one image
+        sizeType: ['original', 'compressed'], // either submit with original or compressed size
+        sourceType: ['album', 'camera'], // choose available from album and camera
+
+        success: function (res) {
+          // TODO: it could happen that the user chose one image and before submitting ticket
+          // he deletes the image. A file-check should be done before submitting.
+          that.setData( {
+            attachment: res.tempFilePaths[0],
+
+            // hide add image icon and show image preview
+            addImageHidden: true,
+            previewHidden: false
+          });
+        }
+      })
+  },
+
+  // remove image
+  removeImage: function() {
+    this.setData({
+      attachment: null,
+
+      // hide image preview and show image add
+      addImageHidden: false,
+      previewHidden: true
     })
-  },*/
+  },
 
   // submit
 
   formSubmit: function (e) {
     var value = e.detail.value;
+    value.attachment = this.data.attachment;
+
     freshdesk.checkContact(value.email, freshdesk.createTicket(value, '../submitconfirm/submitconfirm'))
   }
 })

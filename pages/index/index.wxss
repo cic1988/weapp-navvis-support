@@ -1,0 +1,27 @@
+.add_image {
+    padding: 20rpx 30rpx;
+    background-color: white;
+    margin-left: 20rpx;
+    width: 50%;
+    height: 50%
+}
+
+.preview {
+    background-color: transparent;
+    margin-left: 20rpx;
+    width: 50%;
+    height: 50%
+}
+
+.preview_image.delete {
+  height: 20px;
+  width: 100%;
+  background: #ccc;
+  opacity: 0.8;
+}
+
+.delete image {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}

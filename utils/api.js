@@ -101,58 +101,108 @@ function checkContact(email, callback) {
 // redirectPage: which page to redirect to after submitting
 function createTicket(value, redirectPage) {
 
-  wx.request({
-    url: HOST_URI + 'tickets',
-    method: 'POST',
+  var ticketData = {
+    'subject': '[WeChat]' + value.subject,
+    'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
+    'email': value.email,
+    'priority': 1,
+    'status': 2,
+    'responder_id': 7002450169, // this is Yuan
+    'type': 'Ask Question/Report Something not Working!!',
+    'custom_fields': {
+      'request_category': "General Question",
+      'product_types': "Business, Operations &amp; Others",
+      'product_categories': "General Issue"
+    }
+  }
 
-    data: {
-      'subject': '[WeChat]' + value.subject,
-      'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
-      'email': value.email,
-      'priority': 1,
-      'status': 2,
-      'responder_id': 7002450169, // this is Yuan
-      'type': 'Ask Question/Report Something not Working!!',
-      'custom_fields': {
-        'request_category': "General Question",
-        'product_types': "Business, Operations &amp; Others",
-        'product_categories': "General Issue"
-      }
-      // attachment currently available, why? - with curl is ok
-      //'attachments[0]': that.data.attachments
-    },
+  // note:
+  // if the ticket contains attachment(image), only use wx.uploadFile() to submit it
+  // because freshdesk attachment only acepts Content-Type: multipart/form-data
+  // see https://developer.freshdesk.com/api/#attachments
+  // wx.request() currently only supports application/json and application/x-www-form-urlencoded
+  // see https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html#wxrequestobject
 
-    header: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + API_KEY
-    },
+  if (value.attachment == null) {
 
-    success: function (res) {
-      // following details see docs: https://developer.freshdesk.com/api/
+    wx.request({
+      url: HOST_URI + 'tickets',
+      method: 'POST',
 
-      if (res.statusCode == 201) {
-        console.log('submit successfully!')
+      data: ticketData,
 
-        wx.showToast({
-          title: '',
-          icon: 'success',
-          duration: 1000,
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + API_KEY
+      },
 
-          complete: function (res) {            
-            wx.setStorageSync('userEmail', value.email);
-            wx.redirectTo({ url: redirectPage });
-          }
-        })
-      }
-      else {
+      success: function (res) {
+        // following details see docs: https://developer.freshdesk.com/api/
+
+        if (res.statusCode == 201) {
+          console.log('submit successfully!')
+
+          wx.showToast({
+            title: '',
+            icon: 'success',
+            duration: 1000,
+
+            complete: function (res) {
+              wx.setStorageSync('userEmail', value.email);
+              wx.redirectTo({ url: redirectPage });
+            }
+          })
+        }
+        else {
+          showWarning(res.statusCode + ': ' + lang.warning_unknown)
+        }
+      },
+
+      fail: function (res) {
         showWarning(res.statusCode + ': ' + lang.warning_unknown)
       }
-    },
+    })
+  }
+  else {
+ 
+    wx.uploadFile({
+      url: HOST_URI + 'tickets',
+      filePath: value.attachment,
+      name: 'attachments[]', // the only key for freshdesk to identify the upload file
 
-    fail: function (res) {
-      showWarning(res.statusCode + ': ' + lang.warning_unknown)
-    }
-  });
+      formData: ticketData,
+
+      header: {
+        'Authorization': 'Basic ' + API_KEY
+      },
+
+      success: function (res) {
+        // following details see docs: https://developer.freshdesk.com/api/
+
+        if (res.statusCode == 201) {
+          console.log('submit successfully!')
+
+          wx.showToast({
+            title: '',
+            icon: 'success',
+            duration: 1000,
+
+            complete: function (res) {
+              wx.setStorageSync('userEmail', value.email);
+              wx.redirectTo({ url: redirectPage });
+            }
+          })
+        }
+        else {
+          showWarning(res.statusCode + ': ' + lang.warning_unknown)
+        }
+      },
+
+      fail: function (res) {
+        showWarning(res.statusCode + ': ' + lang.warning_unknown)
+      }
+    })   
+  }
 }
 
 //---------------------------------------------------------------------------------------
@@ -170,6 +220,8 @@ function reloadLang() {
 
   lang.description_label = _('Description:')
   lang.description_placeholder = _('Issue description in detail')
+
+  lang.attachment_label = _('Would you like to attach an image?')
 
   lang.submitbtn_text = _('Submit')
 
@@ -192,7 +244,6 @@ function reloadLang() {
 module.exports = {
   checkContact: checkContact,
   createTicket: createTicket,
-  reloadLang: reloadLang,
   lang: lang
 }
 

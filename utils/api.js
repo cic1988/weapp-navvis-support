@@ -101,21 +101,6 @@ function checkContact(email, callback) {
 // redirectPage: which page to redirect to after submitting
 function createTicket(value, redirectPage) {
 
-  var ticketData = {
-    'subject': '[WeChat]' + value.subject,
-    'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
-    'email': value.email,
-    'priority': 1,
-    'status': 2,
-    'responder_id': 7002450169, // this is Yuan
-    'type': 'Ask Question/Report Something not Working!!',
-    'custom_fields': {
-      'request_category': "General Question",
-      'product_types': "Business, Operations &amp; Others",
-      'product_categories': "General Issue"
-    }
-  }
-
   // note:
   // if the ticket contains attachment(image), only use wx.uploadFile() to submit it
   // because freshdesk attachment only acepts Content-Type: multipart/form-data
@@ -129,7 +114,20 @@ function createTicket(value, redirectPage) {
       url: HOST_URI + 'tickets',
       method: 'POST',
 
-      data: ticketData,
+      data: {
+        'subject': '[WeChat] ' + value.subject,
+        'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
+        'email': value.email,
+        'priority': 1,
+        'status': 2,
+        'responder_id': 7002450169, // this is Yuan
+        'type': 'Ask Question/Report Something not Working!!',
+        'custom_fields': {
+          'request_category': "General Question",
+          'product_types': "Business, Operations &amp; Others",
+          'product_categories': "General Issue"
+        }
+      },
 
       header: {
         'Content-Type': 'application/json',
@@ -170,7 +168,18 @@ function createTicket(value, redirectPage) {
       filePath: value.attachment,
       name: 'attachments[]', // the only key for freshdesk to identify the upload file
 
-      formData: ticketData,
+      formData: {
+        'subject': '[WeChat] ' + value.subject,
+        'description': value.description + '<p> --- submitted from ' + app.globalData.userInfo.nickName + '---</p>',
+        'email': value.email,
+        'priority': 1,
+        'status': 2,
+        'responder_id': 7002450169, // this is Yuan
+        'type': 'Ask Question/Report Something not Working!!',
+        'custom_fields[request_category]': 'General Question',
+        'custom_fields[product_types]': 'Business, Operations &amp; Others',
+        'custom_fields[product_categories]': 'General Issue'
+      },
 
       header: {
         'Authorization': 'Basic ' + API_KEY
